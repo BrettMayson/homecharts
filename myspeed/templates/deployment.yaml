@@ -46,7 +46,7 @@ spec:
           volumeMounts:
             - name: {{ include "myspeed.fullname" . }}
               mountPath: /myspeed/data
-            {{ toYaml .Values.volumeMounts | nindent 12 }}
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
             
       {{- with .Values.volumes }}
       volumes:
