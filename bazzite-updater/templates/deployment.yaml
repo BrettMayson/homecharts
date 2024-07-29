@@ -46,6 +46,8 @@ spec:
               mountPath: /root/.ssh/id_rsa
               subPath: private_key
               readOnly: true
+              permissions:
+                - 0400
             {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
