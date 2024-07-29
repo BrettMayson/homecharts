@@ -38,13 +38,11 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: config-data
-              volumeMounts:
-                - name: config-data
-                  mountPath: /app
-                - name: ssh-secret
-                  mountPath: /root/.ssh/id_rsa
-                  subPath: private_key
-                  readOnly: true
+              mountPath: /app
+            - name: ssh-secret
+              mountPath: /root/.ssh/id_rsa
+              subPath: private_key
+              readOnly: true
             {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
