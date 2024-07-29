@@ -30,7 +30,6 @@ spec:
         runAsUser: 1099
         runAsGroup: 1099
         fsGroup: 1099
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       hostNetwork: true
       containers:
         - name: {{ .Chart.Name }}
