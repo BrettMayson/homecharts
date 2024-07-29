@@ -5,6 +5,6 @@ metadata:
 data:
   config.yaml: |
     machines:
-      {{- range $machine := .Values.machines }}
-      - {{ toYaml $machine | nindent 6 }}
+      {{ with .Values.machines }}
+      {{- toYaml . | nindent 6 }}
       {{- end }}
