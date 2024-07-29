@@ -26,11 +26,23 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "bazzite-updater.serviceAccountName" . }}
-      securityContext:
-        runAsUser: 1099
-        runAsGroup: 1099
-        fsGroup: 1099
       hostNetwork: true
+      initContainers:
+        - name: init
+          image: "{{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.initContainer.resources | nindent 12 }}
+          volumeMounts:
+            - name: config-data
+              mountPath: /app
+            - name: ssh-secret
+              mountPath: /root/.ssh/id_rsa
+              subPath: private_key
+              readOnly: true
+            {{- with .Values.initContainer.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -57,6 +69,7 @@ spec:
         - name: ssh-secret
           secret:
             secretName: {{ include "bazzite-updater.fullname" . }}
+            defaultMode: 0o0400
         {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
