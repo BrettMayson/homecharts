@@ -49,13 +49,13 @@ spec:
             - name: config-data
               mountPath: /opt/adguardhome/conf/AdGuardHome.yaml
               subPath: AdGuardHome.yaml
-              readOnly: false
             - name: adguard-data
               mountPath: /opt/adguardhome/work
       volumes:
         - name: config-data
           configMap:
             name: {{ include "adguard.fullname" . }}
+            defaultMode: 0666
         - name: adguard-data
           persistentVolumeClaim:
             claimName: {{ include "adguard.fullname" . }}
