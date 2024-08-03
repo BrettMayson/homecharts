@@ -47,7 +47,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: config-data
-              mountPath: /opt/adguardhome/conf
+              mountPath: /opt/adguardhome/conf/AdGuardHome.yaml
               subPath: AdGuardHome.yaml
             - name: adguard-data
               mountPath: /opt/adguardhome/work
