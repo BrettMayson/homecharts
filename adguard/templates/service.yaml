@@ -6,7 +6,7 @@ metadata:
     {{- include "adguard.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
-  {{- with .Values.service.loadBalancerIP }}
+  {{- with .Values.service.ip }}
   loadBalancerIP: {{ . }}
   {{- end }}
   ports:
