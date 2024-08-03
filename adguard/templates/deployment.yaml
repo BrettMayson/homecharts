@@ -28,6 +28,15 @@ spec:
       serviceAccountName: {{ include "adguard.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-config
+          image: busybox
+          command: ['sh', '-c', 'cp /tmp/AdGuardHome.yaml /opt/adguardhome/conf/AdGuardHome.yaml']
+          volumeMounts:
+            - name: config-data
+              mountPath: /tmp
+            - name: tmp
+              mountPath: /opt/adguardhome/conf
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -46,19 +55,19 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: config-data
-              mountPath: /opt/adguardhome/conf/AdGuardHome.yaml
-              subPath: AdGuardHome.yaml
+            - name: tmp
+              mountPath: /opt/adguardhome/conf
             - name: adguard-data
               mountPath: /opt/adguardhome/work
       volumes:
         - name: config-data
           configMap:
             name: {{ include "adguard.fullname" . }}
-            defaultMode: 0o0666
         - name: adguard-data
           persistentVolumeClaim:
             claimName: {{ include "adguard.fullname" . }}
+        - name: tmp
+          emptyDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
