@@ -18,7 +18,7 @@ ingress:
   className: ""
   annotations: {}
   hosts:
-    - host: {{ .Release.Name }}.local
+    - host: {{ include "atuin.fullname" . }}.local
       paths:
         - path: /
           pathType: ImplementationSpecific
