@@ -41,7 +41,7 @@ spec:
               value: "8888"
             - name: ATUIN_OPEN_REGISTRATION
               value: "{{ .Values.atuin.open_registration }}"
-          image: ghcr.io/atuinsh/atuin:latest
+          image: ghcr.io/atuinsh/atuin:{{ .Values.atuin.tag | default .Chart.AppVersion }}
           name: atuin
           ports:
             - containerPort: 8888

@@ -7,7 +7,7 @@ postgres:
   port: 5432
 
 atuin:
-  image: ghcr.io/atuinsh/atuin:latest
+  image: ghcr.io/atuinsh/atuin
   open_registration: true
 
 service:
