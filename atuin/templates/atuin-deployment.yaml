@@ -2,15 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: atuin
+  labels:
+    {{- include "myspeed.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "atuin.selectorLabels" . | nindent 6 }}
-  template:
-    metadata:
-      labels:
-        {{- include "atuin.selectorLabels" . | nindent 6 }}}
+      {{- include "myspeed.selectorLabels" . | nindent 6 }}
     spec:
       containers:
         - args:

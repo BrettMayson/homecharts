@@ -9,11 +9,13 @@ spec:
     type: Recreate # This is important to ensure duplicate pods don't run and cause corruption
   selector:
     matchLabels:
+      service: {{ .Release.Name }}-postgres
       {{- include "atuin.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "atuin.selectorLabels" . | nindent 6 }}
+        service: {{ .Release.Name }}-postgres
+        {{- include "atuin.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: postgresql
