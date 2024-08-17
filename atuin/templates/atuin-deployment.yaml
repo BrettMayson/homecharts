@@ -9,6 +9,7 @@ spec:
   selector:
     matchLabels:
       {{- include "atuin.selectorLabels" . | nindent 6 }}
+  template:
     spec:
       containers:
         - args:
