@@ -8,7 +8,7 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - name: "8888"
-      port: {{ .Values.atuin.port | default 8888 }}
+      port: {{ .Values.atuin.port }}
       targetPort: 8888
   selector:
     {{- include "atuin.selectorLabels" . | nindent 4 }}
