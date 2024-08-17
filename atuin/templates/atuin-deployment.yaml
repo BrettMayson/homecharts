@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   name: atuin
   labels:
-    {{- include "myspeed.labels" . | nindent 4 }}
+    {{- include "atuin.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "myspeed.selectorLabels" . | nindent 6 }}
+      {{- include "atuin.selectorLabels" . | nindent 6 }}
     spec:
       containers:
         - args:
