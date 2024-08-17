@@ -5,7 +5,6 @@ metadata:
     {{- include "atuin.selectorLabels" . | nindent 4 }}
   name: {{ .Release.Name }}-postgres
 spec:
-  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
